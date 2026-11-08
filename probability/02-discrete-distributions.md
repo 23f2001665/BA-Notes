@@ -149,15 +149,17 @@ Business uses: arrivals, defects per metre of cloth, typos per page, claims per 
 
 ## 9. Cheat sheet
 
-| Distribution | Parameters | Support | Mean | Variance |
-|---|---|---|---|---|
-| Discrete uniform | m values | 1…m | (m + 1)/2 | (m² − 1)/12 |
-| Bernoulli | p | {0, 1} | p | p(1 − p) |
-| Binomial | n, p | 0…n | np | np(1 − p) |
-| Poisson | λ | 0, 1, 2, … | λ | λ |
-| Geometric | p | 1, 2, … | 1/p | (1 − p)/p² |
-| Negative binomial | r, p | r, r+1, … | r/p | r(1 − p)/p² |
-| Hypergeometric | N, K, n | max(0, n−N+K)…min(n, K) | nK/N | n(K/N)(1 − K/N)(N − n)/(N − 1) |
+| Distribution | Parameters | Support | Mean | Variance | Skewness | Excess kurtosis |
+|---|---|---|---|---|---|---|
+| Discrete uniform | m values | 1…m | (m + 1)/2 | (m² − 1)/12 | 0 | −6(m² + 1)/(5(m² − 1)) |
+| Bernoulli | p | {0, 1} | p | p(1 − p) | (1 − 2p)/√(p(1 − p)) | (1 − 6p(1 − p))/(p(1 − p)) |
+| Binomial | n, p | 0…n | np | np(1 − p) | (1 − 2p)/√(np(1 − p)) | (1 − 6p(1 − p))/(np(1 − p)) |
+| Poisson | λ | 0, 1, 2, … | λ | λ | 1/√λ | 1/λ |
+| Geometric | p | 1, 2, … | 1/p | (1 − p)/p² | (2 − p)/√(1 − p) | 6 + p²/(1 − p) |
+| Negative binomial | r, p | r, r+1, … | r/p | r(1 − p)/p² | (2 − p)/√(r(1 − p)) | 6/r + p²/(r(1 − p)) |
+| Hypergeometric | N, K, n | max(0, n−N+K)…min(n, K) | nK/N | n(K/N)(1 − K/N)(N − n)/(N − 1) | close to the binomial's when n ≪ N | close to the binomial's when n ≪ N |
+
+Reading the last two columns: skewness is positive (right tail) for all the "waiting" and "rare event" families and shrinks as n, r or λ grows, which is why they approach the normal. See [descriptive-statistics/03](../descriptive-statistics/03-skewness-and-kurtosis.md) for how to interpret these numbers.
 
 ---
 

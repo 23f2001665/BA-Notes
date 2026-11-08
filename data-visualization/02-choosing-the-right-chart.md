@@ -191,6 +191,8 @@ Any value outside the fences is plotted individually as a potential outlier.
 - Overlay the raw points (strip/swarm plot) when $n$ is small (< 30-50).
 - State what whiskers mean (1.5 × IQR vs min/max vs percentiles).
 
+**The numbers behind the picture:** the box is the *five-number summary* and the fences are an outlier rule; see [descriptive-statistics/04](../descriptive-statistics/04-position-and-outliers.md#4-detecting-outliers) for how fences compare with z-scores (z-scores can *miss* outliers through masking) and [descriptive-statistics/03](../descriptive-statistics/03-skewness-and-kurtosis.md) for turning "off-centre median" into a skewness number.
+
 **Limitations:** it hides the **shape** (a bimodal distribution can give the same box as a unimodal one), and "outlier" is a *rule*, not a verdict. An outlier may be an error, a data-entry mistake or the most interesting observation. Investigate before deleting.
 
 #### How to read a box plot: worked example (SPSS output)
@@ -250,6 +252,7 @@ The numbers beside the outlier symbols are **row (case) IDs**, so you can go bac
 - **Bin width matters**: too wide hides structure; too narrow gives noise. Try several.
 - Don't confuse with a bar chart: bins are *adjacent* intervals of a continuous variable, so bars touch.
 - With unequal bin widths, plot **density** (count ÷ width), not count.
+- Read off **skewness** (which tail is longer), **modality** (number of peaks) and **kurtosis** (tail weight) visually, then confirm with numbers: [descriptive-statistics/03](../descriptive-statistics/03-skewness-and-kurtosis.md). The mean/median/mode ordering in each shape is in [descriptive-statistics/01](../descriptive-statistics/01-central-tendency.md#5-how-shape-decides-mean-vs-median-vs-mode). To match the histogram to a model curve, see [probability](../probability/03-continuous-distributions.md).
 
 ### 4.3 Other distribution charts
 

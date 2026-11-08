@@ -75,6 +75,8 @@ Z = (X − μ)/σ turns any normal into **N(0, 1)**, so a single table (or `norm
 - P(50 < X < 70) = P(−1 < Z < 1) = **0.683**.
 - 90th percentile = 60 + 1.2816 × 10 ≈ **72.8**.
 
+**Link to descriptive statistics:** check a sample's skewness and kurtosis ([descriptive-statistics/03](../descriptive-statistics/03-skewness-and-kurtosis.md#9-checking-normality)) and use a Q–Q plot before assuming normality.
+
 **When *not* to use it:** counts near zero, strictly positive skewed amounts (money, times), proportions near 0 or 1, and data with frequent extreme outliers. Check with a histogram or Q–Q plot first.
 
 ---
@@ -88,7 +90,7 @@ X is log-normal if **ln X is normal**. This happens when effects *multiply* (gro
 
 ![Gamma, log-normal and Weibull](images/03_gamma_lognormal_weibull.png)
 
-*Examples:* income and house prices, stock prices (over time), file sizes, time to complete tasks. **Tip:** if a variable is skewed, taking logs often makes it approximately normal, which then lets you apply normal-based methods.
+*Examples:* income and house prices, stock prices (over time), file sizes, time to complete tasks. **Tip:** if a variable is skewed, taking logs often makes it approximately normal, which then lets you apply normal-based methods ([how and when this fails](../descriptive-statistics/03-skewness-and-kurtosis.md#8-fixing-skewed-data)).
 
 ---
 
@@ -221,16 +223,18 @@ Here is the same story at a glance:
 
 ## 11. Cheat sheet
 
-| Distribution | Parameters | Support | Mean | Variance |
-|---|---|---|---|---|
-| Uniform | a, b | [a, b] | (a + b)/2 | (b − a)²/12 |
-| Normal | μ, σ | ℝ | μ | σ² |
-| Log-normal | μ, σ (of ln X) | (0, ∞) | eᵘ⁺ˢ²ᐟ² | (eˢ² − 1)e²ᵘ⁺ˢ² |
-| Exponential | λ (rate) | [0, ∞) | 1/λ | 1/λ² |
-| Gamma | α (shape), θ (scale) | (0, ∞) | αθ | αθ² |
-| Beta | α, β | [0, 1] | α/(α + β) | αβ/[(α + β)²(α + β + 1)] |
-| Weibull | k (shape), λ (scale) | [0, ∞) | λΓ(1 + 1/k) | λ²[Γ(1 + 2/k) − Γ²(1 + 1/k)] |
-| Pareto | α, x_min | [x_min, ∞) | αx_min/(α − 1) if α > 1 | exists only if α > 2 |
+| Distribution | Parameters | Support | Mean | Variance | Skewness | Excess kurtosis |
+|---|---|---|---|---|---|---|
+| Uniform | a, b | [a, b] | (a + b)/2 | (b − a)²/12 | 0 | −1.2 |
+| Normal | μ, σ | ℝ | μ | σ² | 0 | 0 |
+| Log-normal | μ, σ (of ln X) | (0, ∞) | eᵘ⁺ˢ²ᐟ² | (eˢ² − 1)e²ᵘ⁺ˢ² | (eˢ² + 2)√(eˢ² − 1) | e⁴ˢ² + 2e³ˢ² + 3e²ˢ² − 6 |
+| Exponential | λ (rate) | [0, ∞) | 1/λ | 1/λ² | 2 | 6 |
+| Gamma | α (shape), θ (scale) | (0, ∞) | αθ | αθ² | 2/√α | 6/α |
+| Beta | α, β | [0, 1] | α/(α + β) | αβ/[(α + β)²(α + β + 1)] | 2(β − α)√(α + β + 1) / [(α + β + 2)√(αβ)] | e.g. Beta(2, 5): −0.12 |
+| Weibull | k (shape), λ (scale) | [0, ∞) | λΓ(1 + 1/k) | λ²[Γ(1 + 2/k) − Γ²(1 + 1/k)] | depends on k only (k = 1.5: 1.07) | depends on k only (k = 1.5: 1.39) |
+| Pareto | α, x_min | [x_min, ∞) | αx_min/(α − 1) if α > 1 | exists only if α > 2 | exists only if α > 3 | exists only if α > 4 |
+
+The **Beta** is symmetric (skew 0) when α = β, right-skewed when α < β, left-skewed when α > β. Higher moments such as skewness and kurtosis are even more demanding than the mean: a distribution can have a mean and variance but no skewness, as the Pareto row shows. For how to read and estimate these, see [descriptive-statistics/03](../descriptive-statistics/03-skewness-and-kurtosis.md) and [01 §8](01-random-variables-and-expectation.md#8-moments-and-the-shape-of-a-distribution).
 
 ---
 

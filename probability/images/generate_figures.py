@@ -71,6 +71,23 @@ def fig01b():
     save(fig, "01_mean_variance.png")
 
 
+def fig01c():
+    """Running mean: settles for the normal, never settles for the Cauchy (no mean exists)."""
+    rng = np.random.default_rng(7)
+    n = 5000
+    k = np.arange(1, n + 1)
+    fig, ax = plt.subplots(1, 2, figsize=(10, 3.3), sharey=True)
+    for i, (name, draws) in enumerate([("Normal(0, 1): mean exists", rng.standard_normal((5, n))),
+                                       ("Cauchy: no mean, no variance", rng.standard_cauchy((5, n)))]):
+        for r, c in zip(draws, C):
+            ax[i].plot(k, np.cumsum(r) / k, color=c, lw=1)
+        ax[i].axhline(0, color="black", lw=0.8)
+        ax[i].set(title=name, xlabel="number of observations", xscale="log")
+    ax[0].set_ylabel("running average")
+    ax[0].set_ylim(-4, 4)
+    save(fig, "01_running_mean.png")
+
+
 # ---------------------------------------------------------------- 02
 def fig02():
     fig, ax = plt.subplots(1, 3, figsize=(12, 3.4))
@@ -292,7 +309,7 @@ def fig04b():
 
 
 if __name__ == "__main__":
-    for f in [fig01, fig01b, fig02, fig02b, fig02c, fig03, fig03b, fig03c, fig03d, fig03e,
+    for f in [fig01, fig01b, fig01c, fig02, fig02b, fig02c, fig03, fig03b, fig03c, fig03d, fig03e,
               fig04, fig04b]:
         f()
     print("figures written to", OUT)
