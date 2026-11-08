@@ -193,6 +193,55 @@ Any value outside the fences is plotted individually as a potential outlier.
 
 **Limitations:** it hides the **shape** (a bimodal distribution can give the same box as a unimodal one), and "outlier" is a *rule*, not a verdict. An outlier may be an error, a data-entry mistake or the most interesting observation. Investigate before deleting.
 
+#### How to read a box plot: worked example (SPSS output)
+
+The plot below is a typical SPSS-style box plot of one variable (`VAR0001`), drawn **horizontally** with the value axis from 0 to 2. Values are eyeballed from the picture.
+
+```text
+value   0.0        0.5        1.0        1.5        2.0
+         |----------|----------|----------|----------|
+         ├──┬──────┬───────────┤                    
+            │ Q1  M│  Q3       └─────────┤  o o oo o o o o      *
+            └──────┘                                           (214)
+         min  box (IQR)    whisker end     outliers (o)    extreme (*)
+                           ≈ 1.17          ≈ 1.2 to 1.9    ≈ 2.0
+```
+
+| Element | Approx. value | Meaning |
+|---|---|---|
+| Left edge of box | ≈ 0.10 | **Q1**: 25 % of observations are below this |
+| Thick line in box | ≈ 0.27 | **Median (Q2)**: 50 % below, 50 % above |
+| Right edge of box | ≈ 0.55 | **Q3**: 75 % of observations are below this |
+| Box width | ≈ 0.45 | **IQR** = Q3 − Q1: spread of the middle 50 % |
+| Left whisker end | ≈ 0.0 | Smallest non-outlier value (here the minimum) |
+| Right whisker end | ≈ 1.17 | Largest value *inside* the upper fence |
+| Circles `o` (cases 207–217) | ≈ 1.2 – 1.9 | **Outliers**: beyond 1.5 × IQR from the box |
+| Star `*` (case 214) | ≈ 2.0 | **Extreme outlier**: beyond 3 × IQR from the box |
+
+The numbers beside the outlier symbols are **row (case) IDs**, so you can go back to the dataset and inspect those records.
+
+**Verify the fences** (IQR ≈ 0.45):
+
+| Fence | Formula | Value | Result |
+|---|---|---|---|
+| Upper (outlier) | $Q_3 + 1.5\,\text{IQR}$ | $0.55 + 0.68 \approx 1.23$ | Whisker stops just below it; points beyond are circles |
+| Upper (extreme) | $Q_3 + 3\,\text{IQR}$ | $0.55 + 1.35 \approx 1.90$ | Only case 214 (≈ 2.0) exceeds it, hence the star |
+| Lower (outlier) | $Q_1 - 1.5\,\text{IQR}$ | $0.10 - 0.68 < 0$ | Below the minimum, so no low outliers |
+
+**What the plot says**
+
+1. **Right-skewed**: the median is close to Q1 (not centred in the box), the right whisker is far longer than the left, and all outliers are on the right.
+2. **Heavy upper tail**: about 11 flagged cases (207–217), so this is a tail, not one stray value.
+3. **Most values are small** (middle 50 % between ≈ 0.1 and 0.55), while a few reach ≈ 2.0. Outliers pull the mean above the median, so report the **median** as the typical value.
+
+**Reading routine for any box plot**
+
+1. Read the **axis, units and orientation** (box plots can be horizontal or vertical).
+2. Locate the **median** and see where it sits inside the box.
+3. Judge **spread** from the box width (IQR) and **skew** from the median position and whisker lengths.
+4. Check what the **whiskers** mean (1.5 × IQR is the default in SPSS, R and seaborn).
+5. Look at **points beyond the whiskers**: error, rare-but-real case, or the interesting one? Investigate before removing.
+
 ### 4.2 Histogram: the chart for the shape of one variable
 
 **Use when:** one numeric variable and you want to see **shape**: symmetric, skewed, bimodal, gaps, spread.
