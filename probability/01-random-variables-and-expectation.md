@@ -10,7 +10,9 @@
 4. [Variance and standard deviation](#4-variance-and-standard-deviation)
 5. [Useful rules](#5-useful-rules)
 6. [Parameters, and the map of distributions](#6-parameters-and-the-map-of-distributions)
-7. [Code snippets](#7-code-snippets)
+7. [Median, mode and quantiles of a distribution](#7-median-mode-and-quantiles-of-a-distribution)
+8. [Moments and the shape of a distribution](#8-moments-and-the-shape-of-a-distribution)
+9. [Code snippets](#9-code-snippets)
 
 ---
 
@@ -130,7 +132,50 @@ Details, formulas and examples: [02 – Discrete Distributions](02-discrete-dist
 
 ---
 
-## 7. Code snippets
+## 7. Median, mode and quantiles of a distribution
+
+The "typical value" measures from data ([descriptive-statistics/01](../descriptive-statistics/01-central-tendency.md)) have exact model counterparts:
+
+| Measure | For a distribution | How to find it |
+|---|---|---|
+| **Mean** μ | E[X] | Weighted average / integral (section 3) |
+| **Median** | The x with F(x) = 0.5 | Solve the CDF, or `ppf(0.5)` |
+| **Mode** | The most likely value / peak of the PMF or PDF | Highest bar / top of the curve |
+| **p-th quantile** | The x with F(x) = p | `ppf(p)` |
+
+For a **symmetric** unimodal distribution all three coincide. For a **right-skewed** one: mode < median < mean.
+*Example:* exponential with rate 1: mode = 0, median = ln 2 ≈ 0.693, mean = 1. This is the same ordering the data-side note shows with histograms.
+
+---
+
+## 8. Moments and the shape of a distribution
+
+A **moment** averages a power of X; higher powers weight extreme values more heavily.
+
+| Order | Central moment E[(X − μ)ᵏ] | Standardised | Name | Measures |
+|---|---|---|---|---|
+| 1 | (0, by definition) | (raw: E[X] = μ) | Mean | Location |
+| 2 | σ² | 1 | Variance | Spread |
+| 3 | E[(X − μ)³] | **E[Z³]** | **Skewness** | Asymmetry (+ = long right tail) |
+| 4 | E[(X − μ)⁴] | **E[Z⁴]** | **Kurtosis** | Tail weight (normal = 3; *excess* = kurtosis − 3) |
+
+where Z = (X − μ)/σ. Skewness and kurtosis are **unit-free**, so they can be compared across variables.
+
+**Examples** (excess kurtosis shown): the normal has skewness 0 and kurtosis 0. The exponential has skewness 2 and kurtosis 6 (very right-skewed, heavy tail). The uniform has skewness 0 and kurtosis −1.2 (flat, no tails). Full table: [descriptive-statistics/03](../descriptive-statistics/03-skewness-and-kurtosis.md#6-skewness-and-kurtosis-of-common-distributions); the cheat sheets in [02](02-discrete-distributions.md#9-cheat-sheet) and [03](03-continuous-distributions.md#11-cheat-sheet) include these columns.
+
+**Moments need not exist.** E[Xᵏ] is finite only if the tail is thin enough. The Cauchy distribution has *no* mean, variance, skewness or kurtosis; a Pareto with shape α has a mean only if α > 1 and a variance only if α > 2. When the mean does not exist, averages do not settle down however much data you collect:
+
+![The running average converges for a normal but not for a Cauchy](images/01_running_mean.png)
+
+This is why the Law of Large Numbers and the Central Limit Theorem need conditions (finite mean, finite variance), and why heavy-tailed business data (claim sizes, city populations, customer revenue) need care.
+
+**Moments identify a distribution.** Matching the first few sample moments to the formulas for mean and variance is a classic way to *estimate parameters* (the method of moments). E.g. a gamma with sample mean m and variance v has θ = v/m and α = m²/v.
+
+**Sample vs population:** x̄, s², and the sample skewness and kurtosis estimate their population counterparts. The sample versions, their small-sample corrections and the software differences are in [descriptive-statistics/03](../descriptive-statistics/03-skewness-and-kurtosis.md#4-sample-formulas-and-software-differences).
+
+---
+
+## 9. Code snippets
 
 ```python
 import numpy as np
@@ -150,4 +195,6 @@ d.sf(80)     # P(X >  80)  = 0.0228     (survival function = 1 - cdf)
 d.ppf(0.9)   # 90th percentile = 72.8   (inverse CDF)
 d.rvs(5)     # 5 random draws
 d.mean(), d.var(), d.interval(0.95)   # summary and central 95% range
+d.stats(moments="mvsk")              # mean, variance, skewness, excess kurtosis
+d.median()                            # = d.ppf(0.5)
 ```
