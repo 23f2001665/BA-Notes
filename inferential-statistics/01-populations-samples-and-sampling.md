@@ -37,7 +37,7 @@ Inference: estimate θ ± margin of error  (confidence interval)
            or decide whether a claim about θ is plausible  (hypothesis test)
 ```
 
-The middle step, the *probability model of how a statistic varies*, is the sampling distribution ([note 02](02-sampling-distributions-and-clt.md)), and it is built from the distributions in [probability/](../probability/01-random-variables-and-expectation.md).
+The middle step, the *probability model of how a statistic varies*, is the sampling distribution ([note 02](02-sampling-distributions.md)), and it is built from the distributions in [probability/](../probability/01-random-variables-and-expectation.md).
 
 ---
 
@@ -141,9 +141,11 @@ FPC = √[(N − n)/(N − 1)]
 
 | Next note | Question it answers |
 |---|---|
-| [02 – Sampling Distributions & the CLT](02-sampling-distributions-and-clt.md) | How does a statistic vary from sample to sample? |
-| [03 – Estimation & Confidence Intervals](03-estimation-and-confidence-intervals.md) | What is the likely range for the parameter? |
-| [04 – Hypothesis Testing Fundamentals](04-hypothesis-testing-fundamentals.md) | Is the data consistent with a specific claim? |
+| [02 – Sampling Distributions](02-sampling-distributions.md) | How does a statistic (x̄, p̂, s²) vary from sample to sample? |
+| [03 – Law of Large Numbers & the CLT](03-law-of-large-numbers-and-clt.md) | Why is x̄ approximately normal, and how large must n be? |
+| [04 – Parameter Estimation](04-parameter-estimation.md) | How do we choose the best value of a parameter from data (moments, maximum likelihood)? |
+| [05 – Confidence Intervals](05-confidence-intervals.md) | What is the likely range for the parameter? |
+| [06 – Hypothesis Testing Fundamentals](06-hypothesis-testing-fundamentals.md) | Is the data consistent with a specific claim? |
 
 ---
 
