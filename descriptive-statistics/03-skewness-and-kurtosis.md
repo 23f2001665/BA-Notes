@@ -53,7 +53,7 @@ The sample version replaces E[·] by an average over the data. See [probability/
 
 **Rough guide** (no formal cut-offs; always check with a histogram):
 
-| |Skewness| | Interpretation |
+| Absolute skewness | Interpretation |
 |---|---|
 | < 0.5 | Approximately symmetric |
 | 0.5 – 1 | Moderately skewed |
